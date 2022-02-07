@@ -1,11 +1,11 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "hyeongjin-blog",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "프론트엔드 중심의 개발 블로그",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Lee HyeongJin <dev.hyeongjin@gmail.com>",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/hhhjin/blog/issues"
   },
   "dependencies": {
     "gatsby": "^4.6.2",
@@ -35,7 +35,7 @@
   "devDependencies": {
     "prettier": "^2.5.1"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://hyeongjin.com",
   "keywords": [
     "gatsby"
   ],
@@ -43,7 +43,7 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/hhhjin/blog.git"
   },
   "scripts": {
     "build": "gatsby build",
