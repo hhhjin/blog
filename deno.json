@@ -1,6 +1,6 @@
 {
 	"tasks": {
-		"dev": "deno run --watch --allow-net src/app.ts"
+		"dev": "deno run --watch --allow-net --allow-read src/app.ts"
 	},
 	"imports": {
 		"std/": "https://deno.land/std@0.192.0/"
@@ -21,7 +21,7 @@
 		"semiColons": true,
 		"singleQuote": false,
 		"proseWrap": "preserve",
-		"include": ["src/"],
+		"include": [],
 		"exclude": []
 	}
 }
