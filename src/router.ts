@@ -2,7 +2,7 @@ import { HomePage } from "./pages/home.ts";
 import { NotFoundPage } from "./pages/not-found.ts";
 import { PostPage } from "./pages/post.ts";
 
-export function router(req: Request): Response {
+export async function router(req: Request) {
 	const pathname = new URL(req.url).pathname;
 	const paths = pathname.split("/").slice(1);
 
@@ -29,7 +29,18 @@ export function router(req: Request): Response {
 		) {
 			// @todo
 		}
-	} catch (_e) {
+
+		if (paths.length === 1 && paths[0] === "robots.txt") {
+			const robotsTxt = await Deno.readFile(
+				`${Deno.cwd()}/static/robots.txt`,
+			);
+			return new Response(robotsTxt, {
+				status: 200,
+				headers: { "Content-Type": "text/plain" },
+			});
+		}
+	} catch (e) {
+		console.log(e);
 		// if (e instanceof Error) {}
 	}
 
