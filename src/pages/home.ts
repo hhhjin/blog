@@ -15,7 +15,7 @@ for await (const dirEntry of Deno.readDir(`${cwd}/posts`)) {
 
 const list = postList.map((post) =>
 	`<li><a href="/posts/${post.slug}">${post.title}</a></li>`
-);
+).join("");
 
 const html = HtmlTemplate({
 	head: "<title>블로그</title>",
