@@ -1,5 +1,7 @@
 import { HtmlTemplate } from "./html.ts";
 
+const css = await Deno.readTextFile("src/templates/post.css");
+
 export interface PostTemplateParams {
 	title: string;
 	date: string;
@@ -12,11 +14,18 @@ export function PostTemplate({
 	content,
 }: PostTemplateParams) {
 	return HtmlTemplate({
-		head: `<title>${title}</title>`,
+		head: `
+			<title>${title}</title>
+			<style>${css}</style>
+		`,
 		body: `
-      <h1>${title}</h1>
-      <div>${date}</div>
-      <div>${content}</div>
+			<article>
+				<header>
+					<h1>${title}</h1>
+					<div>${date}</div>
+				</header>
+				<div>${content}</div>
+			</article>
     `,
 	});
 }
