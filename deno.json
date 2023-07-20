@@ -3,6 +3,7 @@
 		"dev": "deno run --watch --allow-net --allow-read src/app.ts"
 	},
 	"imports": {
+		"@hyeongjin/": "./modules/",
 		"std/": "https://deno.land/std@0.192.0/"
 	},
 	"lint": {
