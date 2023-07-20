@@ -13,8 +13,13 @@ for await (const dirEntry of Deno.readDir(`${cwd}/posts`)) {
 	postList.push(JSON.parse(meta));
 }
 
-const list = postList.map((post) =>
-	`<li><a href="/post/${post.slug}">${post.title}</a></li>`
+const list = postList.sort((
+	a,
+	b,
+) => (new Date(b.date).getTime() - new Date(a.date).getTime())).map(
+	(
+		post,
+	) => `<li><a href="/post/${post.slug}">${post.title}</a></li>`,
 ).join("");
 
 const html = HtmlTemplate({
