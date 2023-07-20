@@ -5,27 +5,25 @@
 
 <h2>라우터 라이브러리</h2>
 <pre>
-  <code>
-    const forward = router({
-      "/": {
-        GET: () => () => "GET /",
-        POST: () => () => "POST /"
-      },
-      "/posts": {
-        GET: () => () => "GET /posts",
-        POST: () => () => "POST /posts"
-      },
-      "/post/:slug": {
-        GET: ({ params }) => () => `GET /post/${params.slug}`
-      }
-    });
+<code>const forward = router({
+  "/": {
+    GET: () => () => "GET /",
+    POST: () => () => "POST /",
+  },
+  "/posts": {
+    GET: () => () => "GET /posts",
+    POST: () => () => "POST /posts",
+  },
+  "/post/:slug": {
+    GET: ({ params }) => () => `GET /post/${params.slug}`,
+  },
+});
     
-    // "GET /"
-    console.log(forward("/", "GET")());
+// "GET /"
+console.log(forward("/", "GET")());
     
-    // "GET /posts/dev-log-1"
-    console.log(forward("/posts/dev-log-1", "GET")());
-  </code>
+// "GET /posts/dev-log-1"
+console.log(forward("/posts/dev-log-1", "GET")());</code>
 </pre>
 <p>
   블로그에 쓸 라이브러인데 기본적인 인터페이스는 이렇다.
