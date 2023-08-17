@@ -1,0 +1,60 @@
+<p>기존 블로그에서는 마크다운으로 작성한 글을 <code>posts</code> 디렉토리에 넣어두면 런타임 때 모든 <code>.md</code> 파일을 읽어 HTML로 생성해 놓고 메모리에 적재시켜 놓는 방식이었다. 이번엔 이 방식에서 단지 HTML을 생성하는 과정을 런타임에서 빌드타임으로 순서를 당기고 <code>metadata.json</code>으로 관리하던 글 정보를 <code>.md</code>안에 작성하는 <code>frontmatter</code>를 적용했다.</p>
+<h3>기존</h3>
+<pre><code class="language-typescript">// src/pages/post.ts
+for await (const dirEntry of Deno.readDir(&quot;posts&quot;)) {
+	const meta = await Deno.readTextFile(
+		`posts/${dirEntry.name}/metadata.json`,
+	);
+	const md = await Deno.readTextFile(`posts/${dirEntry.name}/post.md`);
+	const html = markdown(md);
+	// ...
+}
+</code></pre>
+<h3>변경 후</h3>
+<pre><code class="language-typescript">// scripts/generate-posts.ts
+const posts = [];
+
+for await (const dirEntry of Deno.readDir(&quot;posts&quot;)) {
+	const md = await Deno.readTextFile(`posts/${dirEntry.name}/post.md`);
+	const { html, matters } = markdown(md);
+	await Deno.writeTextFile(`generated/posts/${matters.slug}.html`, html);
+	posts.push({
+		title: matters.title,
+		slug: matters.slug,
+		date: matters.date,
+	});
+}
+
+await Deno.writeTextFile(&quot;generated/posts.json&quot;, JSON.stringify(posts));
+</code></pre>
+<pre><code class="language-typescript">// src/pages/post.ts
+const posts = JSON.parse(await Deno.readTextFile(&quot;generated/posts.json&quot;));
+
+for (const post of posts) {
+	const html = await Deno.readTextFile(`generated/posts/${post.slug}.html`);
+	// ...
+}
+</code></pre>
+<p>대부분의 코드를 <code>scripts/generate-posts.ts</code>로 옮겨 <code>pages/post.ts</code>에서는 html만 신경쓰도록 관심도를 분리했다.</p>
+<p>여기에 추가적으로 각 글에 고유한 해시값을 부여하는 기능을 추가했다. 글 내용이 변하면 해시값도 바뀌어서 글 내부 내용이 변했는지 파악할 수 있어서 불필요한 생성을 막고 나중에는 HTTP Cache에 써먹을 생각이다.</p>
+<pre><code class="language-typescript">// scripts/generate-posts.ts
+const posts = await Deno.readTextFile(&quot;generated/posts.json&quot;);
+const newPosts = [];
+
+for await (const dirEntry of Deno.readDir(&quot;posts&quot;)) {
+	// ...
+	const hashed = hash(md, &quot;md4&quot;);
+	const post = posts.find((p) =&gt; p.slug === matters.slug);
+
+	// 해시값 비교 후 일치하면 패스
+	if (post &amp;&amp; post.hashed === hashed) {
+		newPosts.push(post);
+		continue;
+	}
+
+	// ...
+}
+
+// newPosts로 덮어쓰기
+await Deno.writeTextFile(&quot;generated/posts.json&quot;, JSON.stringify(newPosts));
+</code></pre>
