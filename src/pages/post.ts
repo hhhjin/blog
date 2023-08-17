@@ -1,29 +1,29 @@
-import { micromark } from "../deps.ts";
 import { PostTemplate } from "../templates/post.ts";
 
+const postsInfo = JSON.parse(
+	await Deno.readTextFile("generated/posts.json"),
+) as {
+	title: string;
+	slug: string;
+	date: string;
+	hashed: string;
+}[];
+
 const posts = new Map<string, string>();
-const cwd = Deno.cwd();
 
-for await (const dirEntry of Deno.readDir(`${cwd}/posts`)) {
-	if (dirEntry.name.startsWith(".")) continue;
+for (const post of postsInfo) {
+	const { title, slug, date } = post;
 
-	const slug = dirEntry.name;
+	const content = await Deno.readTextFile(`generated/posts/${slug}.html`);
 
-	const meta = await Deno.readTextFile(`${cwd}/posts/${slug}/metadata.json`);
-	const { title, date } = JSON.parse(meta);
-
-	Deno.readTextFile(`${cwd}/posts/${slug}/post.md`)
-		.then((md) => {
-			const content = micromark(md);
-
-			const post = PostTemplate({
-				title,
-				date,
-				content,
-			});
-
-			posts.set(slug, post);
-		});
+	posts.set(
+		slug,
+		PostTemplate({
+			title,
+			date,
+			content,
+		}),
+	);
 }
 
 export function PostPage({ slug }: { slug: string }) {

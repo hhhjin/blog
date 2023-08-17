@@ -4,7 +4,7 @@
 	},
 	"imports": {
 		"@hyeongjin/": "./modules/",
-		"std/": "https://deno.land/std@0.192.0/"
+		"std/": "https://deno.land/std@0.198.0/"
 	},
 	"lint": {
 		"include": ["src/"],

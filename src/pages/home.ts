@@ -1,19 +1,13 @@
 import { HtmlTemplate } from "../templates/html.ts";
 
-const cwd = Deno.cwd();
-const postList: { title: string; slug: string; date: string }[] = [];
+const posts = JSON.parse(await Deno.readTextFile("generated/posts.json")) as {
+	title: string;
+	slug: string;
+	date: string;
+	hashed: string;
+}[];
 
-for await (const dirEntry of Deno.readDir(`${cwd}/posts`)) {
-	if (dirEntry.name.startsWith(".")) continue;
-
-	const meta = await Deno.readTextFile(
-		`${cwd}/posts/${dirEntry.name}/metadata.json`,
-	);
-
-	postList.push(JSON.parse(meta));
-}
-
-const list = postList.sort((
+const list = posts.sort((
 	a,
 	b,
 ) => (new Date(b.date).getTime() - new Date(a.date).getTime())).map(

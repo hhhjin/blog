@@ -1,3 +1,9 @@
+---
+title: dev.log[2]
+slug: dev-log-2
+date: 2023-07-20
+---
+
 이전에 작업하던 라우터 라이브러리 개발은 블로그에 최소한으로 사용가능한 기능을 완성하는 데 초점을 맞췄다. 속도는 koa-trie-router보다 2.5배 느리다고 나온다.([참고한 벤치마크](https://github.com/delvedor/router-benchmark)) 테스트 코드는 거의 처음 짜본 거라 Hono의 테스트 코드를 참고했지만 사실 먼지도 모르고 대충 작성했다.
 
 ## 라우팅
