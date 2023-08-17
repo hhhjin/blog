@@ -11,6 +11,9 @@ type Post = {
 
 let posts: Post[];
 
+await Deno.mkdir("generated").catch(() => {});
+await Deno.mkdir("generated/posts").catch(() => {});
+
 try {
 	const postsJson = await Deno.readTextFile("generated/posts.json");
 	posts = JSON.parse(postsJson);
@@ -77,7 +80,6 @@ for await (const dirEntry of Deno.readDir("posts")) {
 		hashed,
 	});
 
-	await Deno.create(`generated/posts/${matters.slug}.html`);
 	await Deno.writeTextFile(`generated/posts/${matters.slug}.html`, html);
 
 	console.log(`${matters.title} 글 추가됨`);
