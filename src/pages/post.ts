@@ -17,7 +17,7 @@ for (const post of postsInfo) {
 	const content = await Deno.readTextFile(`generated/posts/${slug}.html`);
 
 	posts.set(
-		slug,
+		encodeURI(slug),
 		PostTemplate({
 			title,
 			date,
