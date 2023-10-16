@@ -30,13 +30,19 @@ export const forward = router({
 			});
 		},
 	},
-	"/post/:postSlug/image/:imageSlug": {
-		GET: ({ params }) => () => {
-			console.log(params);
-			// todo
-			return new Response(
-				`/post/${params.postSlug}/image/${params.imageSlug}`,
+	"/posts/:postSlug/image/:imageName": {
+		GET: ({ params }) => async () => {
+			const postSlug = decodeURI(params.postSlug);
+			const imageName = decodeURI(params.imageName);
+
+			const headers = new Headers();
+			// @todo
+			headers.append("Content-Type", "image/png");
+
+			const image = await Deno.readFile(
+				`posts/${postSlug}/image/${imageName}`,
 			);
+			return new Response(image, { headers });
 		},
 	},
 });
