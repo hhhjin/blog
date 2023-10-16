@@ -1,0 +1,75 @@
+<p><img src="/posts/UI-%EC%97%90%EB%94%94%ED%84%B0-%EA%B0%9C%EB%B0%9C%EA%B8%B0-2/image/what_I_did_today.png" alt="What I did today" />
+사진 기능을 드디어 추가함</p>
+<p>이번 작업은 어제 계획했던 대로 폴더내부를 보여주는 트리 컴포넌트를 만드는 것이다. 바로 위 사진, 왼쪽 위에 &quot;Open a folder&quot; 버튼을 누르면 폴더 트리가 보인다. 현재 사진 속 화면은 내 블로그 폴더를 연 상태에서 <code>src/pages/home.ts</code>를 클릭한 모습이다. 오른쪽에 있는 건 home.ts 데이터를 그냥 띄어놓은 거다.</p>
+<p>어떤 걸 했는지 짧게 되새김해 보자면</p>
+<ol>
+<li>pnpm 모노레포 세팅</li>
+<li>Next.js, Tauri 세팅</li>
+<li>FileTree UI 컴포넌트, LeftPanel 컨테이너</li>
+<li>파일 클릭하면 데이터 넘기기</li>
+</ol>
+<h3>1. pnpm 모노레포 세팅</h3>
+<p>별 거 없고 <code>pnpm-workspace.yaml</code>에 패키지 경로 <code>apps/web</code>, <code>apps/desktop</code>적어줬다.</p>
+<h3>2. Next.js, Tauri 세팅</h3>
+<p><code>create-next-app</code>과 <code>cargo tauri dev</code>를 사용해서 프로젝트를 생성했다. 여기서 좀 다르게 한 점은 Tauri 튜토리얼을 보면 Next.js 레포 안 src-tauri라는 폴더에 데스크탑용 코드가 들어가는데 이걸 밖으로 뺐다.</p>
+<pre><code>// 튜토리얼
+- apps
+	- web
+		- ...
+		- src-tauri
+
+// 변경한 방식
+- apps
+	- desktop
+	- web
+</code></pre>
+<h3>3. FileTree UI 컴포넌트, LeftPanel 컨테이너</h3>
+<p>옛날 방식이긴 하지만 components/containers 방식으로 구조를 정했다. 그리고 UI 컴포넌트 <code>&lt;FileTree /&gt;</code>부터 작성했다.</p>
+<pre><code class="language-jsx">// components/file-tree/index.tsx
+import { useTreeData } from &quot;@react-stately/data&quot;
+
+function FileTree({ root }) {
+	const tree = useTreeData(...)
+	return &lt;Folder folder={tree.items[0]} /&gt;
+}
+
+// components/file-tree/folder.tsx
+function Folder(folder) {
+	return (
+		&lt;div&gt;
+			&lt;div&gt;{folder.value.name}&lt;/div&gt;
+			{folder.children.map(child =&gt; 
+					child.type === &quot;file&quot; ?
+						&lt;File file={child} /&gt; :
+						&lt;Folder folder={child} /&gt;)}
+		&lt;/div&gt;
+	)
+}
+</code></pre>
+<p>대충 이런 식이었던 것 같다. 저 <code>useTreeData</code>는 트리 내부 데이터를 바꿀 때 유용해서 지금은 쓸모없지만 그냥 미리 넣어놨다.</p>
+<p>이제 이 UI 컴포넌트를 불러와서 데이터를 넣어줘야 하니까 <code>&lt;LeftPanel /&gt;</code>이라는 컴포넌트를 <code>containers</code>폴더에 만들었다. 이름을 어떻게 지을지 몰라서 그냥 이렇게 했다. 그리고 제일 왼쪽 위 &quot;Open a folder&quot; 버튼을 만들고 <code>import { open } from @tauri-apps/api/dialog</code>모듈을 사용해서 클릭하면 파인더가 열리게 했다. 이어서 확인을 누르면 <code>import { readDir } from @tauri-apps/api/fs</code>로 파일 정보를 읽어 <code>&lt;FileTree /&gt;</code>에 넣어줬다.</p>
+<pre><code class="language-jsx">// 대충 이런 느낌
+function LeftPanel() {
+	const [root, setRoot] = useState(null);
+
+	const handleOpenFolderClick = () =&gt; {
+		// open()
+		// readDir()
+		// setRoot()
+	};
+
+	return (
+		&lt;div&gt;
+			&lt;button onClick={handleOpenFolderClick}&gt;Open a folder&lt;/button&gt;
+			&lt;FileTree root={root} /&gt;
+		&lt;/div&gt;
+	);
+}
+</code></pre>
+<h3>4. 파일 클릭하면 데이터 넘기기</h3>
+<p>이건 조금 고민을 했다. 어쨌든 지금 데이터는 왼쪽에서 오른쪽으로 흘러가는 데 그렇다고 데이터가 연결되는 두 컨테이너를 서로 의존시키고 싶지가 않아서 임의로 데이터를 관리하고 이어주는 manager라는 애를 하나 만들었다.</p>
+<p>현재 보고 있는 파일의 정보를 <code>currentFile</code>이라고 하면 manager가 그 값을 가지고 있는다. <code>&lt;LeftPanel /&gt;</code>에서 <code>manager.currentFile.update(data)</code>같은 함수를 실행해서 값을 바꿀 수 있다. 그다음에 어디에선가 <code>currentFile</code> 데이터를 사용할 애들은 <code>manager.currentFile.subscribe((data) =&gt; {})</code>를 실행해서 값이 변하면 실행될 콜백을 넣어준다. <code>window.addEventListener</code>같이 이벤트를 관찰하는 거다.</p>
+<p>이 방식을 리액트에서 사용하려고 이것 저것 만져보면서 구현해볼까라는 생각을 잠시 했지만 zustand를 사용하기로 정했다. 방법은 zustand store에 데이터를 저장하고, 데이터에 의존하는 컴포넌트는 useStore를 사용하면 데이터가 변경될 때마다 리렌더링이 진행된다.</p>
+<h3>이제 다음 할 것은?</h3>
+<p>이제 파일을 클릭하면 파일 내부에 있는 컴포넌트 목록을 보여줄 차례이다. 이걸 구현하려면 코드를 파싱해야 되는데 오늘 시간이 좀 남아서 좀 알아봤다. 아무래도 Tauri가 러스트 기반이어서 SWC가 좋아 보여서 코드를 좀 살펴봤고 문서가 적어서 약간 시간이 좀 걸렸지만 구상은 해놨다. 근데 아직 러스트를 잘 모르기 때문에 구현하는데 시간이 걸릴 것 같아서 js로 할 수 있는 방법 찾아보던 중 <code>@swc/wasm-web</code>을 발견!</p>
+<p>이제 내일 아니면 모레 중에 컴포넌트 목록 보여주는 것까지는 마칠 수 있을 것 같다. 끝.</p>
