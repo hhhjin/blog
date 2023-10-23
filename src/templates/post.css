@@ -6,3 +6,17 @@ article {
 img {
   width: 100%;
 }
+
+p {
+  font-size: 1.05rem;
+  line-height: 1.7rem;
+}
+
+pre {
+  background-color: floralwhite;
+  padding: 1rem;
+}
+
+code {
+  background-color: floralwhite;
+}
