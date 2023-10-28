@@ -15,6 +15,7 @@ p {
 pre {
   background-color: floralwhite;
   padding: 1rem;
+  overflow: auto;
 }
 
 code {
