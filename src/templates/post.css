@@ -3,21 +3,33 @@ article {
   margin: 48px auto;
 }
 
-img {
-  width: 100%;
-}
-
 p {
+  margin-top: 1.4rem;
+  margin-bottom: 1.4rem;
   font-size: 1.05rem;
   line-height: 1.7rem;
+}
+
+li {
+  margin-bottom: 1rem;
+}
+
+img {
+  width: 100%;
 }
 
 pre {
   background-color: floralwhite;
   padding: 1rem;
+  border: 1px solid gray;
   overflow: auto;
+}
+
+p > code {
+  font-size: 0.9rem;
 }
 
 code {
   background-color: floralwhite;
+  color: rgb(55, 55, 55);
 }
