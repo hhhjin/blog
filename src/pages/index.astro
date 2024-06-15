@@ -1,0 +1,34 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { writeflow } from "../utils/writeflow";
+
+const contents = (
+  await writeflow.v0.contents.list({
+    slug: true,
+    title: true,
+    properties: true,
+  })
+).filter((content) => content.properties.published.checkbox);
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <ul>
+      {
+        contents
+          .sort(
+            (a, b) =>
+              new Date(a.properties.date.date.start).getTime() -
+              new Date(b.properties.date.date.start).getTime()
+          )
+          .map((content) => (
+            <li>
+              <a href={`/${content.slug}`}>{content.title}</a>
+            </li>
+          ))
+      }
+    </ul>
+  </main>
+</Layout>
+
+<style></style>
