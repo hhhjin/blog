@@ -4,12 +4,14 @@ import { marked } from "marked";
 import { writeflow } from "../utils/writeflow";
 import Layout from "../layouts/Layout.astro";
 
-export const getStaticPaths: GetStaticPaths = async (options) => {
-  const contents = await writeflow.v0.contents.list({
+export const getStaticPaths: GetStaticPaths = async () => {
+  const contents = await writeflow({
+    apiKey: import.meta.env.WRITEFLOW_API_KEY,
+  }).contents.list({
     title: true,
     slug: true,
     properties: true,
-    mdBody: true,
+    md: true,
   });
 
   return contents
@@ -21,9 +23,9 @@ export const getStaticPaths: GetStaticPaths = async (options) => {
 };
 
 const props = Astro.props as {
-  content: { mdBody: string; title: string; properties: Record<string, any> };
+  content: { md: string; title: string; properties: Record<string, any> };
 };
-const md = marked.parse(props.content.mdBody);
+const md = marked.parse(props.content.md);
 ---
 
 <Layout title={props.content.title}>

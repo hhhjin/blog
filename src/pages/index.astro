@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { writeflow } from "../utils/writeflow";
 
 const contents = (
-  await writeflow.v0.contents.list({
+  await writeflow({ apiKey: import.meta.env.WRITEFLOW_API_KEY }).contents.list({
     slug: true,
     title: true,
     properties: true,
@@ -16,11 +16,14 @@ const contents = (
     <ul>
       {
         contents
-          .sort(
-            (a, b) =>
-              new Date(a.properties.date.date.start).getTime() -
-              new Date(b.properties.date.date.start).getTime()
-          )
+          .sort((a, b) => {
+            const aDate = a.properties.date.date;
+            const bDate = b.properties.date.date;
+            return (
+              (aDate ? new Date(aDate.start).getTime() : 0) -
+              (bDate ? new Date(bDate.start).getTime() : 0)
+            );
+          })
           .map((content) => (
             <li>
               <a href={`/${content.slug}`}>{content.title}</a>

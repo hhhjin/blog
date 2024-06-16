@@ -18,5 +18,8 @@
     "remark-rehype": "^11.1.0",
     "typescript": "^5.4.5",
     "unified": "^11.0.4"
+  },
+  "devDependencies": {
+    "@notionhq/client": "^2.2.15"
   }
 }
