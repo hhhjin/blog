@@ -36,6 +36,9 @@ importers:
       '@notionhq/client':
         specifier: ^2.2.15
         version: 2.2.15
+      '@writeflow/types':
+        specifier: ^0.0.5
+        version: 0.0.5
 
 packages:
 
@@ -797,6 +800,9 @@ packages:
 
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
+
+  '@writeflow/types@0.0.5':
+    resolution: {integrity: sha512-jLC2ta5neL6VXTJRFSlLgNLRSduoM0C7TtxZaTX6kl+xqkDUJhYVe9AdShdWnCOxrAijwtWadk4XnGbFUckL/w==}
 
   acorn@8.11.3:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
@@ -2819,6 +2825,8 @@ snapshots:
   '@vscode/l10n@0.0.16': {}
 
   '@vscode/l10n@0.0.18': {}
+
+  '@writeflow/types@0.0.5': {}
 
   acorn@8.11.3: {}
 

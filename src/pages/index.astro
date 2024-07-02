@@ -2,13 +2,17 @@
 import Layout from "../layouts/Layout.astro";
 import { writeflow } from "../utils/writeflow";
 
-const contents = (
-  await writeflow({ apiKey: import.meta.env.WRITEFLOW_API_KEY }).contents.list({
-    slug: true,
-    title: true,
-    properties: true,
-  })
-).filter((content) => content.properties.published.checkbox);
+const allContents = await writeflow({
+  apiKey: import.meta.env.WRITEFLOW_API_KEY,
+}).content.list({
+  slug: true,
+  title: true,
+  properties: true,
+});
+
+const contents = allContents.filter(
+  (content) => content.properties.published.checkbox
+);
 ---
 
 <Layout title="Welcome to Astro.">

@@ -20,6 +20,7 @@
     "unified": "^11.0.4"
   },
   "devDependencies": {
-    "@notionhq/client": "^2.2.15"
+    "@notionhq/client": "^2.2.15",
+    "@writeflow/types": "^0.0.5"
   }
 }
