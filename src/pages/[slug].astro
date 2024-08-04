@@ -1,17 +1,20 @@
 ---
-import { marked } from "marked";
 import { writeflow } from "../utils/writeflow";
 import Layout from "../layouts/Layout.astro";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { Renderer } from "../components/Renderer";
+import type { ExtendedBlock } from "@writeflow/types";
 
 export const getStaticPaths = (async () => {
   const contents = await writeflow({
     apiKey: import.meta.env.WRITEFLOW_API_KEY,
   }).content.list({
-    title: true,
-    slug: true,
-    properties: true,
-    md: true,
+    fields: {
+      title: true,
+      slug: true,
+      properties: true,
+      body: true,
+    },
   });
 
   return contents
@@ -23,11 +26,14 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const props = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
-const md = marked.parse(props.content.md);
 ---
 
 <Layout title={props.content.title}>
-  <h1>{props.content.title}</h1>
-  <p>{props.content.properties.date.date?.start}</p>
-  <article set:html={md} />
+  <article>
+    <h1>{props.content.title}</h1>
+    <p>{props.content.properties.date.date?.start}</p>
+    <main>
+      <Renderer body={props.content.body as unknown as ExtendedBlock[]} />
+    </main>
+  </article>
 </Layout>

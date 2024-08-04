@@ -5,9 +5,11 @@ import { writeflow } from "../utils/writeflow";
 const allContents = await writeflow({
   apiKey: import.meta.env.WRITEFLOW_API_KEY,
 }).content.list({
-  slug: true,
-  title: true,
-  properties: true,
+  fields: {
+    slug: true,
+    title: true,
+    properties: true,
+  },
 });
 
 const contents = allContents.filter(

@@ -1,27 +1,27 @@
-import type { Notion } from "@writeflow/types";
+import type { ExtendedBlock, Notion } from "@writeflow/types";
 
 export type ContentProperties = {
   published: Notion.PickPageProperty<"checkbox">
 	date: Notion.PickPageProperty<"date">
-	tags: Notion.PickPageProperty<"multi_select">
+	Description: Notion.PickPageProperty<"rich_text">
 	slug: Notion.PickPageProperty<"rich_text">
 	Name: Notion.PickPageProperty<"title">
 }
+
+export type ContentBody = ExtendedBlock[];
 
 export type Content = {
   id: string;
   title: string;
   slug: string;
-  md: string;
   properties: ContentProperties;
-  body: string;
+  body: ContentBody;
 };
 
 export type ContentFields = {
   id?: boolean;
   title?: boolean;
   slug?: boolean;
-  md?: boolean;
   properties?: boolean;
   body?: boolean;
 };
@@ -42,14 +42,17 @@ export const writeflow = ({
   baseUrl?: string;
 }) => {
   const fetcher = (path: string, init?: Parameters<typeof fetch>[1]) =>
-    fetch(baseUrl || "https://api.writeflow.dev/v0" + path, {
-      ...init,
-      headers: { ...init?.headers, "X-API-KEY": apiKey },
-    });
+    fetch(
+      baseUrl ? `${baseUrl}/v1${path}` : `https://api.writeflow.dev/v1${path}`,
+      {
+        ...init,
+        headers: { ...init?.headers, "X-API-KEY": apiKey },
+      }
+    );
     
   return {
     content: {
-      list: async <T extends ContentFields>(fields: T) => {
+      list: async <T extends ContentFields>({ fields }: { fields: T }) => {
         const res = await fetcher(
           `/contents?fields=${Object.entries(fields)
             .filter(([_, v]) => v)
@@ -63,7 +66,7 @@ export const writeflow = ({
 
         return (await res.json()) as PickContentFields<T>[];
       },
-      byId: async <T extends ContentFields>(id: string, fields: T) => {
+      byId: async <T extends ContentFields>(id: string, { fields }: { fields: T }) => {
         const res = await fetcher(
           `/contents/${id}?fields=${Object.entries(fields)
             .filter(([_, v]) => v)
@@ -77,7 +80,7 @@ export const writeflow = ({
 
         return (await res.json()) as PickContentFields<T>;
       },
-      bySlug: async <T extends ContentFields>(slug: string, fields: T) => {
+      bySlug: async <T extends ContentFields>(slug: string, { fields }: { fields: T }) => {
         const res = await fetcher(
           `/contents/slug/${slug}?fields=${Object.entries(fields)
             .filter(([_, v]) => v)
