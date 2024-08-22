@@ -1,9 +1,9 @@
 ---
-import { writeflow } from "../utils/writeflow";
-import Layout from "../layouts/Layout.astro";
+import { writeflow } from "../../utils/writeflow";
+import Layout from "../../layouts/Layout.astro";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import { Renderer } from "../components/Renderer";
-import type { ExtendedBlock } from "@writeflow/types";
+import { Renderer } from "../../components/react/Renderer";
+import "../../styles/post.css";
 
 export const getStaticPaths = (async () => {
   const contents = await writeflow({
@@ -29,11 +29,17 @@ const props = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
 ---
 
 <Layout title={props.content.title}>
-  <article>
+  <article class="mt-10 mb-28">
     <h1>{props.content.title}</h1>
-    <p>{props.content.properties.date.date?.start}</p>
+    <p class="mt-4">
+      {
+        new Date(
+          props.content.properties.date.date?.start || 0
+        ).toLocaleDateString()
+      }
+    </p>
     <main>
-      <Renderer body={props.content.body as unknown as ExtendedBlock[]} />
+      <Renderer body={props.content.body} client:load />
     </main>
   </article>
 </Layout>

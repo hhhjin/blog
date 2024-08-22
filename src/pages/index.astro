@@ -19,20 +19,30 @@ const contents = allContents.filter(
 
 <Layout title="Welcome to Astro.">
   <main>
-    <ul>
+    <ul class="flex flex-col gap-10 my-20">
       {
         contents
           .sort((a, b) => {
             const aDate = a.properties.date.date;
             const bDate = b.properties.date.date;
             return (
-              (aDate ? new Date(aDate.start).getTime() : 0) -
-              (bDate ? new Date(bDate.start).getTime() : 0)
+              (bDate ? new Date(bDate.start).getTime() : 0) -
+              (aDate ? new Date(aDate.start).getTime() : 0)
             );
           })
           .map((content) => (
             <li>
-              <a href={`/${content.slug}`}>{content.title}</a>
+              <a
+                href={`/blog/${content.slug}`}
+                class="text-3xl text-gray-900 font-semibold"
+              >
+                {content.title}
+              </a>
+              <p class="mt-2 text-gray-600">
+                {new Date(
+                  content.properties.date.date?.start || 0
+                ).toLocaleDateString()}
+              </p>
             </li>
           ))
       }

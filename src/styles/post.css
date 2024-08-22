@@ -1,0 +1,44 @@
+h1 {
+  @apply text-4xl text-gray-900 font-semibold;
+}
+
+h2 {
+  @apply mt-12 text-3xl text-gray-900 font-semibold;
+}
+
+h3 {
+  @apply mt-12 text-2xl text-gray-900 font-semibold;
+}
+
+p {
+  @apply mt-8 text-lg text-gray-700;
+}
+
+pre {
+  @apply mt-10 px-4 pt-12 pb-4 rounded bg-gray-50 border shadow relative;
+}
+
+pre::before {
+  content: attr(data-filename);
+  @apply absolute top-0 left-0 w-full h-8 px-4 py-1 bg-gray-100 text-gray-600;
+}
+
+p code {
+  @apply font-semibold;
+}
+
+ul {
+  @apply mt-6 text-gray-900 list-disc;
+}
+
+ol {
+  @apply mt-6 text-gray-900 list-decimal;
+}
+
+li {
+  @apply mt-2;
+}
+
+li code {
+  @apply font-semibold;
+}
