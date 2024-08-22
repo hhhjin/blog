@@ -11,14 +11,14 @@ h3 {
 }
 
 p {
-  @apply mt-8 text-lg text-gray-700;
+  @apply mt-8 text-lg text-gray-700 break-words;
 }
 
 pre {
   @apply mt-10 px-4 pt-12 pb-4 rounded bg-gray-50 border shadow relative overflow-auto;
 }
 
-pre::before {
+pre[data-filename]::before {
   content: attr(data-filename);
   @apply absolute top-0 left-0 h-8 px-4 py-1 rounded-br bg-gray-200 text-gray-500;
 }

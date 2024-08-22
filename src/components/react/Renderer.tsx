@@ -17,6 +17,7 @@ export function Renderer({ body }: { body: ExtendedBlock[] }) {
                 ? block.code.caption.map((c) => c.plain_text).join("")
                 : undefined
             }
+            className={block.code.caption.length ? "" : "pt-4"}
           >
             <code
               dangerouslySetInnerHTML={{
