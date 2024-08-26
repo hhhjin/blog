@@ -42,3 +42,15 @@ li {
 li code {
   @apply font-semibold;
 }
+
+div:has(> input[type="checkbox"]) {
+  @apply mt-6 flex;
+}
+
+input[type="checkbox"] {
+  @apply w-5 h-5 mt-1 mr-3;
+}
+
+input + label {
+  @apply flex-1 text-lg text-gray-700;
+}
