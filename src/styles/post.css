@@ -14,6 +14,10 @@ p {
   @apply mt-8 text-lg text-gray-700 break-words;
 }
 
+a {
+  @apply font-bold underline;
+}
+
 pre {
   @apply mt-10 px-4 pt-12 pb-4 rounded bg-gray-50 border shadow relative overflow-auto;
 }

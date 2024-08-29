@@ -48,6 +48,14 @@ export function Renderer({ body }: { body: ExtendedBlock[] }) {
             />
           </p>
         ),
+        callout: ({ block }) => (
+          <div className="mt-8 bg-gray-100 rounded px-3 py-4 text-gray-700">
+            {block.callout.icon?.type === "emoji" ? (
+              <span className="mr-2">{block.callout.icon.emoji}</span>
+            ) : null}
+            {block.callout.rich_text.map((r) => r.plain_text).join("")}
+          </div>
+        ),
       }),
     []
   );
