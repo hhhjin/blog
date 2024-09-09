@@ -33,8 +33,8 @@ importers:
         specifier: ^18.3.0
         version: 18.3.0
       '@writeflow/astro':
-        specifier: ^0.0.2
-        version: 0.0.2(astro@4.10.2(@types/node@20.14.2)(typescript@5.4.5))
+        specifier: ^0.0.3
+        version: 0.0.3(astro@4.10.2(@types/node@20.14.2)(typescript@5.4.5))
       astro:
         specifier: ^4.10.2
         version: 4.10.2(@types/node@20.14.2)(typescript@5.4.5)
@@ -895,8 +895,8 @@ packages:
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
 
-  '@writeflow/astro@0.0.2':
-    resolution: {integrity: sha512-cTA8F5X5IKC6s1LAMDmxITQkZ+hN3JpQQTXMa6RLeVeUAGDWNBnlDBeGqORqq6y+b+0EN8/Jn8XTIpZ1WOW68Q==}
+  '@writeflow/astro@0.0.3':
+    resolution: {integrity: sha512-g1QCq302B/Ge7Yt4YwVTwL7dHiBpOaIiFTxl9ovD8YDrJi0hFgmevTldDyjlEPvizNgio2xJcX779MMprEhhKA==}
     peerDependencies:
       astro: ^4.0.0
 
@@ -3231,7 +3231,7 @@ snapshots:
 
   '@vscode/l10n@0.0.18': {}
 
-  '@writeflow/astro@0.0.2(astro@4.10.2(@types/node@20.14.2)(typescript@5.4.5))':
+  '@writeflow/astro@0.0.3(astro@4.10.2(@types/node@20.14.2)(typescript@5.4.5))':
     dependencies:
       '@writeflow/core': 0.0.2
       astro: 4.10.2(@types/node@20.14.2)(typescript@5.4.5)
