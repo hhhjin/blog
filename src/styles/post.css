@@ -19,16 +19,7 @@ a {
 }
 
 pre {
-  @apply mt-10 px-4 pt-12 pb-4 rounded bg-gray-50 border shadow relative overflow-auto;
-}
-
-pre[data-filename]::before {
-  content: attr(data-filename);
-  @apply absolute top-0 left-0 h-8 px-4 py-1 rounded-br bg-gray-200 text-gray-500;
-}
-
-p code {
-  @apply font-semibold;
+  @apply rounded bg-gray-100 !important;
 }
 
 ul {
@@ -57,4 +48,8 @@ input[type="checkbox"] {
 
 input + label {
   @apply flex-1 text-lg text-gray-700;
+}
+
+.image {
+  @apply mt-6 rounded overflow-hidden;
 }

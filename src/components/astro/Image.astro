@@ -1,0 +1,33 @@
+---
+import type { ExtendedImageBlock } from "@writeflow/types";
+
+const { block } = Astro.props as {
+  block: ExtendedImageBlock;
+};
+---
+
+<div
+  style={{
+    paddingBottom: `${(block.image.file.height / block.image.file.width) * 100}%`,
+  }}
+  class="relative w-full image"
+>
+  <span
+    style={{
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      backgroundImage: `url(${block.image.file.blurDataUrl})`,
+      backgroundSize: "cover",
+      zIndex: "-1",
+    }}></span>
+  <img
+    class="w-full h-full absolute"
+    src={block.image.file.url}
+    srcset={`${[500, 800, 1600, 1800].map((w) => block.image.file.url + "?w=" + w + " " + w + "w").join(", ")}`}
+    sizes={`(max-width: 500px) 500px, (max-width: 800px) 800px, (max-width: 1600px) 1600px, 1800px`}
+    decoding="async"
+    loading="lazy"
+    alt={block.image.caption.map((c) => c.plain_text).join("")}
+  />
+</div>

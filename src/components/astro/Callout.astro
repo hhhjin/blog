@@ -1,0 +1,16 @@
+---
+import type { Notion } from "@writeflow/types";
+
+const { block } = Astro.props as {
+  block: Extract<Notion.Block, { type: "callout" }>;
+};
+---
+
+<div class="mt-8 bg-gray-100 rounded px-3 py-4 text-gray-700">
+  {
+    block.callout.icon?.type === "emoji" ? (
+      <span class="mr-2">{block.callout.icon.emoji}</span>
+    ) : null
+  }
+  {block.callout.rich_text.map((r) => r.plain_text).join("")}
+</div>

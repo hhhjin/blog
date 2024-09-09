@@ -2,8 +2,12 @@
 import { writeflow } from "../../utils/writeflow";
 import Layout from "../../layouts/Layout.astro";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import { Renderer } from "../../components/react/Renderer";
+// import { Renderer } from "../../components/react/Renderer";
 import "../../styles/post.css";
+import Renderer from "@writeflow/astro";
+import Code from "../../components/astro/Code.astro";
+import Image from "../../components/astro/Image.astro";
+import Callout from "../../components/astro/Callout.astro";
 
 export const getStaticPaths = (async () => {
   const contents = await writeflow({
@@ -39,7 +43,11 @@ const props = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
       }
     </p>
     <main>
-      <Renderer body={props.content.body} client:load />
+      <!-- <Renderer body={props.content.body} client:load /> -->
+      <Renderer
+        blocks={props.content.body}
+        components={{ callout: Callout, code: Code, image: Image }}
+      />
     </main>
   </article>
 </Layout>

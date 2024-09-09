@@ -1,0 +1,23 @@
+---
+import type { Notion } from "@writeflow/types";
+import { Prism } from "@astrojs/prism";
+import "prismjs/themes/prism.min.css";
+
+const { block } = Astro.props as {
+  block: Extract<Notion.Block, { type: "code" }>;
+};
+---
+
+<div class="mt-6">
+  {
+    block.code.caption.length > 0 && (
+      <div class="-mb-2 px-2 py-1 text-gray-500 underline">
+        {block.code.caption.map((c) => c.plain_text).join("")}
+      </div>
+    )
+  }
+  <Prism
+    lang="tsx"
+    code={block.code.rich_text.map((r) => r.plain_text).join("")}
+  />
+</div>
