@@ -1,10 +1,10 @@
 ---
-import type { Notion } from "@writeflow/types";
+import type { CodeBlock } from "@writeflow/types";
 import { Prism } from "@astrojs/prism";
 import "prismjs/themes/prism.min.css";
 
 const { block } = Astro.props as {
-  block: Extract<Notion.Block, { type: "code" }>;
+  block: CodeBlock;
 };
 ---
 

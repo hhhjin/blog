@@ -33,8 +33,8 @@ importers:
         specifier: ^18.3.0
         version: 18.3.0
       '@writeflow/astro':
-        specifier: ^0.0.3
-        version: 0.0.3(astro@4.10.2(@types/node@20.14.2)(typescript@5.4.5))
+        specifier: ^0.0.5
+        version: 0.0.5(astro@4.10.2(@types/node@20.14.2)(typescript@5.4.5))
       astro:
         specifier: ^4.10.2
         version: 4.10.2(@types/node@20.14.2)(typescript@5.4.5)
@@ -895,13 +895,13 @@ packages:
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
 
-  '@writeflow/astro@0.0.3':
-    resolution: {integrity: sha512-g1QCq302B/Ge7Yt4YwVTwL7dHiBpOaIiFTxl9ovD8YDrJi0hFgmevTldDyjlEPvizNgio2xJcX779MMprEhhKA==}
+  '@writeflow/astro@0.0.5':
+    resolution: {integrity: sha512-Xd3UeGYvMO6Lg/EGQwKLz7TqHqM8CLOmMO2cGc5yJyosXRSAX5TPt00V/GFkkuvVmDZp+Zyug9du8OG7z8P63g==}
     peerDependencies:
       astro: ^4.0.0
 
-  '@writeflow/core@0.0.2':
-    resolution: {integrity: sha512-Xe8/26h3CUFtmJPMwvXQJaWKnXgFVdEegpzZBnHhEcFnURX3hrp57ux7DItm/ixdXo3PN33Gu9UXbp6O6j5PLA==}
+  '@writeflow/core@0.0.5':
+    resolution: {integrity: sha512-T/NN4XRBO53vzgwmyja1Y/RvMdaNaXVH6XMD59rcCbu72Z9KGS9bwiHtnq1PeaygrULQIp7DQQ2k4KcXMPJJOA==}
 
   '@writeflow/types@0.0.10':
     resolution: {integrity: sha512-8eMHzY2E2sLWLzouljZFdUzW6F9NXZ70z7FPvBVLElxEHTFK7joW5FLG21OEACwk9FTLaIXf2ehllFUP2N58HA==}
@@ -3231,12 +3231,12 @@ snapshots:
 
   '@vscode/l10n@0.0.18': {}
 
-  '@writeflow/astro@0.0.3(astro@4.10.2(@types/node@20.14.2)(typescript@5.4.5))':
+  '@writeflow/astro@0.0.5(astro@4.10.2(@types/node@20.14.2)(typescript@5.4.5))':
     dependencies:
-      '@writeflow/core': 0.0.2
+      '@writeflow/core': 0.0.5
       astro: 4.10.2(@types/node@20.14.2)(typescript@5.4.5)
 
-  '@writeflow/core@0.0.2': {}
+  '@writeflow/core@0.0.5': {}
 
   '@writeflow/types@0.0.10': {}
 

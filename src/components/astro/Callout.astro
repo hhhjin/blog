@@ -1,8 +1,8 @@
 ---
-import type { Notion } from "@writeflow/types";
+import type { CalloutBlock } from "@writeflow/types";
 
 const { block } = Astro.props as {
-  block: Extract<Notion.Block, { type: "callout" }>;
+  block: CalloutBlock;
 };
 ---
 
