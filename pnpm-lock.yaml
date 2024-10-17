@@ -61,8 +61,8 @@ importers:
         specifier: ^2.2.15
         version: 2.2.15
       '@writeflow/types':
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.10
+        version: 0.0.10
 
 packages:
 
@@ -903,8 +903,8 @@ packages:
   '@writeflow/core@0.0.2':
     resolution: {integrity: sha512-Xe8/26h3CUFtmJPMwvXQJaWKnXgFVdEegpzZBnHhEcFnURX3hrp57ux7DItm/ixdXo3PN33Gu9UXbp6O6j5PLA==}
 
-  '@writeflow/types@0.0.5':
-    resolution: {integrity: sha512-jLC2ta5neL6VXTJRFSlLgNLRSduoM0C7TtxZaTX6kl+xqkDUJhYVe9AdShdWnCOxrAijwtWadk4XnGbFUckL/w==}
+  '@writeflow/types@0.0.10':
+    resolution: {integrity: sha512-8eMHzY2E2sLWLzouljZFdUzW6F9NXZ70z7FPvBVLElxEHTFK7joW5FLG21OEACwk9FTLaIXf2ehllFUP2N58HA==}
 
   acorn@8.11.3:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
@@ -3238,7 +3238,7 @@ snapshots:
 
   '@writeflow/core@0.0.2': {}
 
-  '@writeflow/types@0.0.5': {}
+  '@writeflow/types@0.0.10': {}
 
   acorn@8.11.3: {}
 

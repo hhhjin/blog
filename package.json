@@ -29,6 +29,6 @@
   },
   "devDependencies": {
     "@notionhq/client": "^2.2.15",
-    "@writeflow/types": "^0.0.5"
+    "@writeflow/types": "^0.0.10"
   }
 }

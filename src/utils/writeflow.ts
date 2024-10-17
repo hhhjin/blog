@@ -1,14 +1,14 @@
-import type { ExtendedBlock, Notion } from "@writeflow/types";
+import type { Block, PickNotionPageProperty } from "@writeflow/types";
 
 export type ContentProperties = {
-  published: Notion.PickPageProperty<"checkbox">
-	date: Notion.PickPageProperty<"date">
-	Description: Notion.PickPageProperty<"rich_text">
-	slug: Notion.PickPageProperty<"rich_text">
-	Name: Notion.PickPageProperty<"title">
-}
+  published: PickNotionPageProperty<"checkbox">;
+  date: PickNotionPageProperty<"date">;
+  Description: PickNotionPageProperty<"rich_text">;
+  slug: PickNotionPageProperty<"rich_text">;
+  Name: PickNotionPageProperty<"title">;
+};
 
-export type ContentBody = ExtendedBlock[];
+export type ContentBody = Block[];
 
 export type Content = {
   id: string;
@@ -46,10 +46,10 @@ export const writeflow = ({
       baseUrl ? `${baseUrl}/v1${path}` : `https://api.writeflow.dev/v1${path}`,
       {
         ...init,
-        headers: { ...init?.headers, "X-API-KEY": apiKey },
+        headers: { ...init?.headers, "X-Api-Key": apiKey },
       }
     );
-    
+
   return {
     content: {
       list: async <T extends ContentFields>({ fields }: { fields: T }) => {
@@ -66,7 +66,10 @@ export const writeflow = ({
 
         return (await res.json()) as PickContentFields<T>[];
       },
-      byId: async <T extends ContentFields>(id: string, { fields }: { fields: T }) => {
+      byId: async <T extends ContentFields>(
+        id: string,
+        { fields }: { fields: T }
+      ) => {
         const res = await fetcher(
           `/contents/${id}?fields=${Object.entries(fields)
             .filter(([_, v]) => v)
@@ -80,7 +83,10 @@ export const writeflow = ({
 
         return (await res.json()) as PickContentFields<T>;
       },
-      bySlug: async <T extends ContentFields>(slug: string, { fields }: { fields: T }) => {
+      bySlug: async <T extends ContentFields>(
+        slug: string,
+        { fields }: { fields: T }
+      ) => {
         const res = await fetcher(
           `/contents/slug/${slug}?fields=${Object.entries(fields)
             .filter(([_, v]) => v)
@@ -91,7 +97,7 @@ export const writeflow = ({
         if (!res.ok) {
           throw new WriteflowApiError(res.status, await res.text());
         }
-    
+
         return (await res.json()) as PickContentFields<T>;
       },
     },
