@@ -1,5 +1,6 @@
 ---
 import type { CalloutBlock } from "@writeflow/types";
+import { RichText } from "@writeflow/astro";
 
 const { block } = Astro.props as {
   block: CalloutBlock;
@@ -12,5 +13,5 @@ const { block } = Astro.props as {
       <span class="mr-2">{block.callout.icon.emoji}</span>
     ) : null
   }
-  {block.callout.rich_text.map((r) => r.plain_text).join("")}
+  <RichText rich_text={block.callout.rich_text} />
 </div>

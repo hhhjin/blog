@@ -1,0 +1,53 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { writeflow } from "../../utils/writeflow-tech";
+
+const allContents = await writeflow({
+  apiKey: import.meta.env.WRITEFLOW_API_KEY_TECH,
+}).content.list({
+  fields: {
+    slug: true,
+    title: true,
+    properties: true,
+  },
+});
+
+const contents = allContents.filter(
+  (content) => content.properties.published.checkbox
+);
+---
+
+<Layout title="Tech">
+  <main>
+    <ul class="flex flex-col gap-10 my-20">
+      {
+        contents
+          .sort((a, b) => {
+            const aDate = a.properties.date.date;
+            const bDate = b.properties.date.date;
+            return (
+              (bDate ? new Date(bDate.start).getTime() : 0) -
+              (aDate ? new Date(aDate.start).getTime() : 0)
+            );
+          })
+          .map((content) => (
+            <li>
+              <a
+                href={`/tech/${content.slug}`}
+                class="text-3xl text-gray-900 font-semibold"
+              >
+                {content.title}
+              </a>
+              <p class="mt-2 text-gray-600">
+                {new Date(
+                  content.properties.date.date?.start || 0
+                ).toLocaleDateString()}
+              </p>
+            </li>
+          ))
+      }
+    </ul>
+  </main>
+</Layout>
+
+<style></style>

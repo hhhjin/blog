@@ -1,17 +1,17 @@
 h1 {
-  @apply text-4xl text-gray-900 font-semibold;
+  @apply text-4xl text-neutral-900 font-semibold;
 }
 
 h2 {
-  @apply mt-12 text-3xl text-gray-900 font-semibold;
+  @apply mt-12 text-3xl text-neutral-900 font-semibold;
 }
 
 h3 {
-  @apply mt-12 text-2xl text-gray-900 font-semibold;
+  @apply mt-12 text-2xl text-neutral-900 font-semibold;
 }
 
 p {
-  @apply mt-8 text-lg text-gray-700 break-words;
+  @apply mt-6 text-base text-neutral-700 break-words;
 }
 
 a {
@@ -19,15 +19,15 @@ a {
 }
 
 pre {
-  @apply rounded bg-gray-100 !important;
+  @apply rounded bg-neutral-100 !important;
 }
 
 ul {
-  @apply mt-6 text-gray-900 list-disc;
+  @apply mt-6 text-neutral-900 list-disc;
 }
 
 ol {
-  @apply mt-6 text-gray-900 list-decimal;
+  @apply mt-6 text-neutral-900 list-decimal;
 }
 
 li {
@@ -47,7 +47,7 @@ input[type="checkbox"] {
 }
 
 input + label {
-  @apply flex-1 text-lg text-gray-700;
+  @apply flex-1 text-lg text-neutral-700;
 }
 
 .image {

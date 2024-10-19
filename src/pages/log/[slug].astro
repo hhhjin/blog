@@ -1,17 +1,16 @@
 ---
-import { writeflow } from "../../utils/writeflow";
+import { writeflow } from "../../utils/writeflow-log";
 import Layout from "../../layouts/Layout.astro";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-// import { Renderer } from "../../components/react/Renderer";
 import "../../styles/post.css";
-import Renderer from "@writeflow/astro/renderer";
+import { Renderer } from "@writeflow/astro";
 import Code from "../../components/astro/Code.astro";
 import Image from "../../components/astro/Image.astro";
 import Callout from "../../components/astro/Callout.astro";
 
 export const getStaticPaths = (async () => {
   const contents = await writeflow({
-    apiKey: import.meta.env.WRITEFLOW_API_KEY,
+    apiKey: import.meta.env.WRITEFLOW_API_KEY_LOG,
   }).content.list({
     fields: {
       title: true,
