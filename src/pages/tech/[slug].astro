@@ -7,6 +7,7 @@ import { Renderer } from "@writeflow/astro";
 import Code from "../../components/astro/Code.astro";
 import Image from "../../components/astro/Image.astro";
 import Callout from "../../components/astro/Callout.astro";
+import GoToListButton from "../../components/astro/GoToListButton.astro";
 
 export const getStaticPaths = (async () => {
   const contents = await writeflow({
@@ -32,7 +33,8 @@ const props = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
 ---
 
 <Layout title={props.content.title}>
-  <article class="mt-10 mb-28">
+  <GoToListButton href="/tech" />
+  <article class="mt-10 mb-20">
     <h1>{props.content.title}</h1>
     <p class="mt-4">
       {
@@ -48,4 +50,5 @@ const props = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
       />
     </main>
   </article>
+  <GoToListButton href="/tech" />
 </Layout>
